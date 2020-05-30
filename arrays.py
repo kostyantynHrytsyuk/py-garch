@@ -9,6 +9,7 @@ import datetime
 import ctypes
 import pandas as pd
 
+
 class Array(object):
 
     def __init__(self, length, values=None):
