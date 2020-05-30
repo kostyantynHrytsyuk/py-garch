@@ -1,5 +1,8 @@
 from arrays import ArrayDateIndex
 import math
+import matplotlib.pyplot as plt
+import statistics
+
 
 class Stock:
     """
@@ -10,14 +13,18 @@ class Stock:
         :param arr: instance of ArrayDateIndex with prices of stock
         """
         assert type(arr) == ArrayDateIndex, 'Wrong array type!'
-        self.arr = arr.to_pandas()
+        self.arr = arr
 
-    def calculate_returns(self, col_name='Price'):
+    def calculate_returns(self):
         """
         Calculate returns for stock
         Price - name of the column
         """
-        return self.arr[col_name].pct_change()
+        rets = []
+        for i in range(len(self.arr)-1):
+            r = (self.arr[i+1]-self.arr[i])/self.arr[i]
+            rets.append(r)
+        return rets
 
     def calculate_volatility(self, scale=1):
         """
@@ -27,4 +34,9 @@ class Stock:
         21 - monthly volatility
         252 - annual volatility
         """
-        return self.calculate_returns().std() * math.sqrt(scale)
+        z = statistics.stdev(self.calculate_returns()) * math.sqrt(scale)
+        return z
+
+    def plot_returns(self):
+        plt.plot(self.calculate_returns())
+        plt.show()

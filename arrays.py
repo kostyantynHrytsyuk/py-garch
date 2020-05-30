@@ -153,6 +153,9 @@ class ArrayDateIndex(Array):
         else:
             return mid
 
+    def get_indices(self):
+        return self._dates
+
     def to_pandas(self):
         data = {'Date': self._dates,
                 'Price': self._values}
