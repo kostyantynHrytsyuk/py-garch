@@ -31,6 +31,14 @@ class Array(object):
         else:
             self.erase(None)
 
+    def __repr__(self):
+        # Fix representation method
+        """
+
+        :return: proper representation of an array
+        """
+        return self._values
+
     def __len__(self):
         """
         :return: the length of array
