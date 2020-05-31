@@ -4,7 +4,6 @@ from garch import MyGARCH
 if __name__ == '__main__':
     # Load prices for S&P 500 index
     sp500 = ApiWrapper.get_company_info('%5EGSPC')
-    sp500.calculate_volatility()
     sp500.plot_returns()
 
     # Make an instance of class MyGARCH
