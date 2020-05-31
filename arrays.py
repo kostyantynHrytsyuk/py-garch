@@ -7,7 +7,6 @@ a collection with fixed size
 """
 import datetime
 import ctypes
-import pandas as pd
 
 
 class Array(object):
@@ -155,9 +154,3 @@ class ArrayDateIndex(Array):
 
     def get_indices(self):
         return self._dates
-
-    # def to_pandas(self):
-    #     data = {'Date': self._dates,
-    #             'Price': self._values}
-    #     df = pd.DataFrame(data, columns=['Date', 'Price'])
-    #     return df

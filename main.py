@@ -1,6 +1,7 @@
 from api_wrap import ApiWrapper
 from garch import MyGARCH
 
+
 def print_movers(companies):
     """
     Print obtained companies symbols with responding values to choose
