@@ -26,7 +26,24 @@ class MyGARCH:
         self.fit.plot()
         plt.show()
 
-    def get_prediction(self, horizon=10):
+    def get_forecast(self, horizon=10):
         forecast = self.fit.forecast(horizon=horizon)
-        a = forecast.variance[-1:].transpose()
-        return a
+        return forecast.variance[-1:].transpose() / 100
+
+    def predict_volatility(self):
+        """
+        Predicts volatility with GARCH model
+        """
+        model = self.get_garch_model()
+        self.fit_garch(model)
+        self.show_fit_result()
+        forecast = self.get_forecast()
+        MyGARCH.print_forecast(forecast)
+
+    @staticmethod
+    def print_forecast(f):
+        """
+
+        """
+        print("\nPrediction of volatility since " + str(sorted(f)[0]) + " for " + str(len(f)) + " days")
+        print(f)

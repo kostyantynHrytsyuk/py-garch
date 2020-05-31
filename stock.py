@@ -70,3 +70,6 @@ class Stock:
     def plot_returns(self):
         plt.plot(self.calculate_returns())
         plt.show()
+
+    def get_indices(self):
+        return self.arr.get_indices()[1:]

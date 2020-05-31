@@ -1,5 +1,6 @@
 import datetime
 
+
 class Utils:
     @staticmethod
     def check_empty(d, key_name):

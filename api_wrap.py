@@ -75,9 +75,9 @@ class ApiWrapper:
 
     @classmethod
     def get_company_info(cls, sym):
-        company = cls.execute_request('stock/v2/get-profile', query={"symbol": "F"})
+        company = cls.execute_request('stock/v2/get-profile', query={"symbol": sym})
         info = Utils.check_empty(company, 'quoteType')
-        print('\nCompany: ' + Utils.check_empty(info, 'longName'))
+        print('\nCompany: ' + Utils.check_empty(info, 'shortName'))
         print('\nStock exchange: ' + Utils.check_empty(info, 'exchange'))
         print('\nMarket: ' + Utils.check_empty(info, 'market'))
 
