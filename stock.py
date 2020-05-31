@@ -14,38 +14,48 @@ class Stock:
         """
         assert type(arr) == ArrayDateIndex, 'Wrong array type!'
         self.arr = arr
-        self.rets = None
+        self._rets = None
         self._mean = None
 
     @property
     def mean(self):
-        if not self.mean:
-            self.mean = statistics.mean(self.rets)
-        return self.mean
+        if not self._mean:
+            self._mean = statistics.mean(self.rets)
+        return self._mean
 
     @mean.setter
     def mean(self, x):
-        self.mean = x
+        self._mean = x
+
+    @property
+    def rets(self):
+        if not self._rets:
+            self._rets = self.calculate_returns()
+        return self._rets
+
+    @rets.setter
+    def rets(self, x):
+        self._rets = x
 
     def calculate_returns(self):
         """ () -> list
         Calculate returns for stock
         Price - name of the column
         """
-        if not self.rets:
+        if not self._rets:
             rets = []
             for i in range(len(self.arr)-1):
                 r = (self.arr[i+1]-self.arr[i])/self.arr[i]
                 rets.append(r)
-            self.rets = rets
+            self._rets = rets
         return self.rets
 
     def calculate_volatility(self, scale=1):
         """ (int) -> int
         Calculate volatility and scale it
         :param scale:
-        1 - daily volatility
-        21 - monthly volatility
+        1 - daily volatility \n
+        21 - monthly volatility \n
         252 - annual volatility
         """
         z = statistics.stdev(self.calculate_returns()) * math.sqrt(scale)

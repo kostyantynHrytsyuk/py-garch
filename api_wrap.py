@@ -1,4 +1,5 @@
 from arrays import ArrayDateIndex
+from stock import Stock
 from utils import Utils
 import json
 import requests
@@ -79,3 +80,13 @@ class ApiWrapper:
         print('\nCompany: ' + Utils.check_empty(info, 'longName'))
         print('\nStock exchange: ' + Utils.check_empty(info, 'exchange'))
         print('\nMarket: ' + Utils.check_empty(info, 'market'))
+
+        stock = Stock(cls.load_prices_json(sym))
+
+        print('\nAverage return: ' + str(round(stock.mean, 4)))
+        print('\nDaily volatility: ' + str(round(stock.calculate_volatility(), 4)))
+        print('\nMonthly volatility: ' + str(round(stock.calculate_volatility(21), 4)))
+        print('\nAnnual volatility: ' + str(round(stock.calculate_volatility(252), 4)))
+        print('\nSharpe ratio: ' + str(round(stock.get_sharpe_ratio(), 4)))
+
+        return stock

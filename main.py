@@ -30,5 +30,4 @@ def get_number_from_user():
 
 if __name__ == "__main__":
     symbol = get_number_from_user()
-    ApiWrapper.get_company_info(symbol)
-    ApiWrapper.load_prices_json(symbol)
+    stock = ApiWrapper.get_company_info(symbol)
