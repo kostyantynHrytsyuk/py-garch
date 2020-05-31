@@ -8,7 +8,7 @@ class Utils:
         if r:
             return r
         else:
-            raise Exception('Empty field' + key_name)
+            raise KeyError('Empty field' + key_name)
 
     @staticmethod
     def convert_timestamps_to_date(ts):

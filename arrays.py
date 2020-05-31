@@ -156,8 +156,8 @@ class ArrayDateIndex(Array):
     def get_indices(self):
         return self._dates
 
-    def to_pandas(self):
-        data = {'Date': self._dates,
-                'Price': self._values}
-        df = pd.DataFrame(data, columns=['Date', 'Price'])
-        return df
+    # def to_pandas(self):
+    #     data = {'Date': self._dates,
+    #             'Price': self._values}
+    #     df = pd.DataFrame(data, columns=['Date', 'Price'])
+    #     return df

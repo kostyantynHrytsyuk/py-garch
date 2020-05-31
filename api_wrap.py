@@ -49,7 +49,7 @@ class ApiWrapper:
 
     @classmethod
     def load_prices_json(cls, company_sym):
-        querystring = {"symbol": company_sym, "interval":"1d", "range": "max"}
+        querystring = {"symbol": company_sym, "interval": "1d", "range": "max"}
         p_json = ApiWrapper.execute_request("stock/v2/get-chart", querystring)
 
         dates, prices = ApiWrapper.__extract_data_from_price_json(p_json)
