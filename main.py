@@ -11,11 +11,13 @@ def print_movers(companies):
         print(str(i+1) + ' - ' + m)
 
 
-def get_char_from_user():
-    letters = {'G', 'S', 'Q'}
+def get_char_from_user(ask_garch=False):
+    letters = {'S', 'Q'}
     while True:
-        print("\nTo continue choose an option below:")
-        print('G - to get volatility prediction from GARCH modeling')
+        print("\nTo continue, choose an option below:")
+        if ask_garch:
+            letters.add('G')
+            print('G - to get volatility prediction from GARCH modeling')
         print('S - to choose another stock')
         print('Q - to quit')
         y = input("\nEnter a character: ").upper()
@@ -42,16 +44,18 @@ def get_number_from_user():
 
 
 if __name__ == "__main__":
+    s = ''
     print('\n--------------- Welcome to GARCH world!---------------\n')
     while True:
+        if s == 'Q':
+            print('\nThank you for using!')
+            break
         symbol = get_number_from_user()
         stock = ApiWrapper.get_company_info(symbol)
-        s = get_char_from_user()
+        s = get_char_from_user(ask_garch=True)
         if s == 'G':
             garch = MyGARCH(stock.rets, stock.get_indices())
             garch.predict_volatility()
+            s = get_char_from_user()
         elif s == 'C':
             continue
-        elif s == 'Q':
-            print('\nThank you for using!')
-            break
