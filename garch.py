@@ -14,7 +14,7 @@ class MyGARCH:
         self.fit = None
 
     def get_garch_model(self):
-        return arch_model(self.arr['Return'], p=1, q=1,
+        return arch_model(self.arr['Return']*10, p=1, q=1,
                           mean='constant', vol='GARCH', dist='normal')
 
     def fit_garch(self, model, upd_freq=4):
@@ -28,4 +28,5 @@ class MyGARCH:
 
     def get_prediction(self, horizon=10):
         forecast = self.fit.forecast(horizon=horizon)
-        return forecast.variance[-1:]
+        a = forecast.variance[-1:].transpose()
+        return a

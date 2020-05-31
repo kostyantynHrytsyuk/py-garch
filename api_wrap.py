@@ -27,13 +27,14 @@ class ApiWrapper:
 
         return json.loads(response.text)
 
-    def get_movers(self):
-        move = self.execute_request("market/get-movers")
+    @classmethod
+    def get_movers(cls):
+        move = cls.execute_request("market/get-movers")
         result = Utils.check_empty(Utils.check_empty(move, 'finance'), 'result')
         companies = []
         for r in result:
             quotes = Utils.check_empty(r, 'quotes')
-            symbols = self.extract_symbols_from_quotes(quotes)
+            symbols = cls.extract_symbols_from_quotes(quotes)
             companies.extend(symbols)
         return companies
 
@@ -71,7 +72,10 @@ class ApiWrapper:
         close_prices = ApiWrapper.__extract_close_prices(ts)
         return date_stamps, close_prices
 
-    #stock = extract_data_from_price_json(load_prices_json(comp[0], URL, headers))
-    # stock = extract_data_from_price_json(load_prices_json('VTI', url, headers))
-
-    #arr = ArrayDateIndex(len(stock[0]), stock[0], stock[1])
+    @classmethod
+    def get_company_info(cls, sym):
+        company = cls.execute_request('stock/v2/get-profile', query={"symbol": "F"})
+        info = Utils.check_empty(company, 'quoteType')
+        print('\nCompany: ' + Utils.check_empty(info, 'longName'))
+        print('\nStock exchange: ' + Utils.check_empty(info, 'exchange'))
+        print('\nMarket: ' + Utils.check_empty(info, 'market'))
