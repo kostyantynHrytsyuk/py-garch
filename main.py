@@ -1,5 +1,6 @@
 from api_wrap import ApiWrapper
 from garch import MyGARCH
+from stock import Stock
 
 
 def print_movers(companies):
@@ -52,7 +53,7 @@ if __name__ == "__main__":
             print('\nThank you for using!')
             break
         symbol = get_number_from_user()
-        stock = ApiWrapper.get_company_info(symbol)
+        stock = Stock.get_company_info(symbol)
         s = get_char_from_user(ask_garch=True)
         if s == 'G':
             garch = MyGARCH(stock.rets, stock.get_indices())

@@ -1,4 +1,6 @@
+from api_wrap import ApiWrapper
 from arrays import ArrayDateIndex
+from utils import Utils
 import math
 import matplotlib.pyplot as plt
 import statistics
@@ -74,3 +76,20 @@ class Stock:
     def get_indices(self):
         return self.arr.get_indices()[1:]
 
+    @classmethod
+    def get_company_info(cls, sym):
+        company = ApiWrapper.execute_request('stock/v2/get-profile', query={"symbol": sym})
+        info = Utils.check_empty(company, 'quoteType')
+        print('\nCompany: ' + Utils.check_empty(info, 'shortName'))
+        print('\nStock exchange: ' + Utils.check_empty(info, 'exchange'))
+        print('\nMarket: ' + Utils.check_empty(info, 'market'))
+
+        stock = Stock(ApiWrapper.load_prices_json(sym))
+
+        print('\nAverage return: ' + str(round(stock.mean, 4)))
+        print('\nDaily volatility: ' + str(round(stock.calculate_volatility(), 4)))
+        print('\nMonthly volatility: ' + str(round(stock.calculate_volatility(21), 4)))
+        print('\nAnnual volatility: ' + str(round(stock.calculate_volatility(252), 4)))
+        print('\nSharpe ratio: ' + str(round(stock.get_sharpe_ratio(), 4)))
+
+        return stock
