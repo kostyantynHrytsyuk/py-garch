@@ -53,6 +53,7 @@ class ApiWrapper:
         p_json = ApiWrapper.execute_request("stock/v2/get-chart", querystring)
 
         dates, prices = ApiWrapper.__extract_data_from_price_json(p_json)
+        prices, dates = Utils.remove_none_in_two_lists(prices, dates)
         return ArrayDateIndex(len(prices), dates, prices)
 
     @classmethod

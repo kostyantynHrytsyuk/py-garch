@@ -73,3 +73,4 @@ class Stock:
 
     def get_indices(self):
         return self.arr.get_indices()[1:]
+
